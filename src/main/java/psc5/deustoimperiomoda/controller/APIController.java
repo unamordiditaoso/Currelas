@@ -1,4 +1,4 @@
-package psc5.deustoimperiomoda.controller;
+package psc5.deustoimperiomoda.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
