@@ -8,7 +8,7 @@ public class DeustoimperiomodaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DeustoimperiomodaApplication.class, args);
-		System.out.println("Prueba");
+		System.out.println("Hola");
 	}
 
 }
