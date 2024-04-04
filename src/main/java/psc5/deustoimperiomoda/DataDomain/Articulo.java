@@ -1,27 +1,35 @@
 package psc5.deustoimperiomoda.DataDomain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Articulo")
 public class Articulo {
+    @Id
+    @GeneratedValue(strategy=GenerationType.TABLE)
+    long id;
     protected Categoria categoria;
     protected String descripcion;
-    protected int idProducto;
     protected String nombre;
     protected double precio;
     protected String tamano;
 
-    public Articulo(Categoria categoria, String descripcion, int idProducto, String nombre, double precio,
+    public Articulo(Categoria categoria, String descripcion, String nombre, double precio,
             String tamano) {
         this.categoria = categoria;
         this.descripcion = descripcion;
-        this.idProducto = idProducto;
         this.nombre = nombre;
         this.precio = precio;
         this.tamano = tamano;
     }
 
-    public Articulo(Categoria categoria, int idProducto) {
+    public Articulo(Categoria categoria) {
         this.categoria = categoria;
         this.descripcion = "";
-        this.idProducto = idProducto;
         this.nombre = "";
         this.precio = 0;
         this.tamano = "";
@@ -43,12 +51,8 @@ public class Articulo {
         this.descripcion = descripcion;
     }
 
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public long getid() {
+        return id;
     }
 
     public String getNombre() {
@@ -77,7 +81,7 @@ public class Articulo {
 
     @Override
     public String toString() {
-        return "Articulo [categoria=" + categoria + ", descripcion=" + descripcion + ", idProducto=" + idProducto
+        return "Articulo [categoria=" + categoria + ", descripcion=" + descripcion
                 + ", nombre=" + nombre + ", precio=" + precio + ", tamano=" + tamano + "]";
     }  
     

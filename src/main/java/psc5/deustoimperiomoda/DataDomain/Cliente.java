@@ -9,13 +9,15 @@ public class Cliente {
     protected String nombre;
     protected String correo;
     protected List<Pedido> pedidos;
+    protected TipoUsuario tipoUsuario;
 
-    public Cliente(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos) {
+    public Cliente(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos, TipoUsuario tipoUsuario) {
         this.contrasena = contrasena;
         this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
         this.pedidos = new ArrayList<Pedido>();
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getContrasena() {
@@ -49,10 +51,18 @@ public class Cliente {
         this.pedidos = pedidos;
     }
 
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     @Override
     public String toString() {
         return "Cliente [contrasena=" + contrasena + ", dni=" + dni + ", nombre=" + nombre + ", correo=" + correo
-                + ", pedidos=" + pedidos + "]";
+                + ", pedidos=" + pedidos + ", tipoUsuario=" + tipoUsuario + "]";
     }
-
+    
 }
