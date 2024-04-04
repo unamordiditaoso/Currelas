@@ -4,35 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Pedido")
 public class Pedido {
-    private static int numeroPedido = 0;
-    private int numeroPedidoActual;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    long id;
     protected String dni;
     protected Date fecha;
     protected List<Articulo> articulosComprados;
 
     public Pedido(String dni, Date fecha, List<Articulo> articulosComprados) {
-        numeroPedido++;
-        this.numeroPedidoActual = numeroPedido;
         this.dni = dni;
         this.fecha = fecha;
         this.articulosComprados = new ArrayList<Articulo>();
-    }
-
-    public static int getNumeroPedido() {
-        return numeroPedido;
-    }
-
-    public static void setNumeroPedido(int numeroPedido) {
-        Pedido.numeroPedido = numeroPedido;
-    }
-
-    public int getNumeroPedidoActual() {
-        return numeroPedidoActual;
-    }
-
-    public void setNumeroPedidoActual(int numeroPedidoActual) {
-        this.numeroPedidoActual = numeroPedidoActual;
     }
 
     public String getDni() {
@@ -61,7 +52,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido [numeroPedidoActual=" + numeroPedidoActual + ", dni=" + dni + ", fecha=" + fecha
+        return "Pedido [dni=" + dni + ", fecha=" + fecha
                 + ", articulosComprados=" + articulosComprados + "]";
     }
 

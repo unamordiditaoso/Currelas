@@ -3,7 +3,16 @@ package psc5.deustoimperiomoda.DataDomain;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Cliente")
 public class Cliente {
+    @Id
     protected String contrasena;
     protected String dni;
     protected String nombre;

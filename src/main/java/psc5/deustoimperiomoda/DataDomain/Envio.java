@@ -1,34 +1,29 @@
 package psc5.deustoimperiomoda.DataDomain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Envio")
 public class Envio {
-    private static int numeroEnvio = 0;
-    private int numeroEnvioActual;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    long id;
     protected Cliente cliente;
     protected Pedido pedido;
     protected Estado estado;
 
-    public Envio(int numeroEnvioActual, Cliente cliente, Pedido pedido, Estado estado) {
-        numeroEnvio++;
-        this.numeroEnvioActual = numeroEnvio;
+    public Envio(Cliente cliente, Pedido pedido, Estado estado) {
         this.cliente = cliente;
         this.pedido = pedido;
         this.estado = estado;
     }
 
-    public static int getNumeroEnvio() {
-        return numeroEnvio;
-    }
-
-    public static void setNumeroEnvio(int numeroEnvio) {
-        Envio.numeroEnvio = numeroEnvio;
-    }
-
-    public int getNumeroEnvioActual() {
-        return numeroEnvioActual;
-    }
-
-    public void setNumeroEnvioActual(int numeroEnvioActual) {
-        this.numeroEnvioActual = numeroEnvioActual;
+    public long getid() {
+        return id;
     }
 
     public Cliente getCliente() {
@@ -57,7 +52,7 @@ public class Envio {
 
     @Override
     public String toString() {
-        return "Envio [numeroEnvioActual=" + numeroEnvioActual + ", cliente=" + cliente + ", pedido=" + pedido
+        return "Envio [cliente=" + cliente + ", pedido=" + pedido
                 + ", estado=" + estado + "]";
     }
 
