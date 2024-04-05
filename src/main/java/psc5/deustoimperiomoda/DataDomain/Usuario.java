@@ -10,8 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Cliente")
-public class Cliente {
+@Table(name = "Usuario")
+public class Usuario {
     @Id
     protected String contrasena;
     protected String dni;
@@ -20,7 +20,7 @@ public class Cliente {
     protected List<Pedido> pedidos;
     protected TipoUsuario tipoUsuario;
 
-    public Cliente(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos, TipoUsuario tipoUsuario) {
+    public Usuario(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos, TipoUsuario tipoUsuario) {
         this.contrasena = contrasena;
         this.dni = dni;
         this.nombre = nombre;
@@ -70,7 +70,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente [contrasena=" + contrasena + ", dni=" + dni + ", nombre=" + nombre + ", correo=" + correo
+        return "Usuario [contrasena=" + contrasena + ", dni=" + dni + ", nombre=" + nombre + ", correo=" + correo
                 + ", pedidos=" + pedidos + ", tipoUsuario=" + tipoUsuario + "]";
     }
     

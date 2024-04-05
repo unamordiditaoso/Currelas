@@ -2,7 +2,7 @@ package psc5.DataDTO;
 
 import java.io.Serializable;
 
-public class ClienteDTO implements Serializable{
+public class UsuarioDTO implements Serializable{
     private static final long serialVersionUID = 1L;
     protected String contrasena;
     protected String dni;

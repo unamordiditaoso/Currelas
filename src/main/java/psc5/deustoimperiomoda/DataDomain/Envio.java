@@ -12,11 +12,11 @@ public class Envio {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     long id;
-    protected Cliente cliente;
+    protected Usuario cliente;
     protected Pedido pedido;
     protected Estado estado;
 
-    public Envio(Cliente cliente, Pedido pedido, Estado estado) {
+    public Envio(Usuario cliente, Pedido pedido, Estado estado) {
         this.cliente = cliente;
         this.pedido = pedido;
         this.estado = estado;
@@ -26,11 +26,11 @@ public class Envio {
         return id;
     }
 
-    public Cliente getCliente() {
+    public Usuario getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
 
