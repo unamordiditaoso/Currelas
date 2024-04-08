@@ -2,21 +2,21 @@ package psc5.deustoimperiomoda.DataDomain;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity
 @Table(name = "Usuario")
+@Entity
 public class Usuario {
     @Id
-    protected String contrasena;
     protected String dni;
+    protected String contrasena;
     protected String nombre;
     protected String correo;
+
+    @OneToMany(mappedBy = "usuario")
     protected List<Pedido> pedidos;
     protected TipoUsuario tipoUsuario;
 

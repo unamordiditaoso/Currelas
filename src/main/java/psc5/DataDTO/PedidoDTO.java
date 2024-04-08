@@ -10,7 +10,7 @@ public class PedidoDTO implements Serializable{
     protected Date fecha;
     protected List<String> articulosComprados;
 
-    public String getDni() {
+    public String getUsuario() {
         return dni;
     }
     public void setDni(String dni) {

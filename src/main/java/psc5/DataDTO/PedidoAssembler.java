@@ -22,7 +22,7 @@ public class PedidoAssembler {
         PedidoDTO dto = new PedidoDTO();
         List<String> articulos = new ArrayList<>();
 
-        dto.setDni(pedido.getDni());
+        dto.setDni(pedido.getUsuario().getDni());
         dto.setFecha(pedido.getFecha());
         for (Articulo articulo : pedido.getArticulosComprados()) {
            articulos.add(articulo.toString());
