@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-
 public class APIController {
     public APIController() {
         
     }
-    @RequestMapping("/test")
+    
+    @RequestMapping("/articulo/all")
     public String test() {
         return "test";
     }
