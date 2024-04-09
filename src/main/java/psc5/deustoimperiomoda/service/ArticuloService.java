@@ -18,17 +18,18 @@ import psc5.deustoimperiomoda.dao.ArticuloRepository;
 @Service
 public class ArticuloService {
 private ArticuloRepository articuloRepository;
+private String connectionString;
 
     public ArticuloService(ArticuloRepository articuloRepository){
         this.articuloRepository = articuloRepository;
-
-        //loadDatos();
+        connectionString = "jdbc:sqlite:DeustoImperioModa.db";
+        loadDatos();
     }
     
-    public void loadDatos() throws SQLException{
+    public void loadDatos(){
         String sql = "SELECT * FROM Articulo";
 		
-		try (Connection con = DriverManager.getConnection("jdbc:sqlite:DeustoImperioModa.db");
+		try (Connection con = DriverManager.getConnection(connectionString);
 		    PreparedStatement pStmt = con.prepareStatement(sql)) {	
 			
 			ResultSet rs = pStmt.executeQuery();
@@ -37,7 +38,8 @@ private ArticuloRepository articuloRepository;
 				Articulo articulo = new Articulo(Categoria.valueOf(rs.getString("categoria")), rs.getString("descripcion"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("tamano"));
 				articuloRepository.save(articulo);
 			}
-		} 
+		} catch (SQLException e) {
+		}
     }
 
     public Articulo getArticulo(Integer id){
@@ -68,27 +70,27 @@ private ArticuloRepository articuloRepository;
         articuloRepository.save(articulo);
     }
 
-    //public Articulo updateArticulo(Articulo articulo, Integer id){
-    //    Optional<Articulo> result = articuloRepository.findById(articulo.getid());
+    public Articulo updateArticulo(Articulo articulo, Integer id){
+        Optional<Articulo> result = articuloRepository.findById(articulo.getid());
 
-    //    if (!result.isEmpty()) {
-    //        Articulo updatedArticulo = result.get();
+        if (!result.isEmpty()) {
+            Articulo updatedArticulo = result.get();
 
-    //        updatedArticulo.setDescripcion(articulo.getDescripcion());
-    //        updatedArticulo.setCategoria(articulo.getCategoria());
-    //        updatedArticulo.setNombre(articulo.getNombre());
-    //        updatedArticulo.setPrecio(articulo.getPrecio());
-    //        updatedArticulo.setTamano(articulo.getTamano());
+            updatedArticulo.setDescripcion(articulo.getDescripcion());
+            updatedArticulo.setCategoria(articulo.getCategoria());
+            updatedArticulo.setNombre(articulo.getNombre());
+            updatedArticulo.setPrecio(articulo.getPrecio());
+            updatedArticulo.setTamano(articulo.getTamano());
 
-    //        articuloRepository.save(updatedArticulo);
+            articuloRepository.save(updatedArticulo);
 
-    //        if (!articuloRepository.findById(id).isEmpty()) {
-    //            return result.isEmpty() ? null : result.get();
-    //        }
-    //    }
+            if (!articuloRepository.findById(id).isEmpty()) {
+                return result.isEmpty() ? null : result.get();
+            }
+        }
 
-    //    return result.isEmpty() ? null : result.get();
-    //}
+        return result.isEmpty() ? null : result.get();
+    }
 
     public void deleteArticulo(Integer id){
         Optional<Articulo> result = articuloRepository.findById(id);
