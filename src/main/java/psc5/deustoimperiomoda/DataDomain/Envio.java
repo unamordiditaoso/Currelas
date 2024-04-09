@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 @Table(name = "Envio")
 public class Envio {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    long ID_env;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int ID_env;
     protected Usuario cliente;
     @OneToOne
     protected Pedido pedido;

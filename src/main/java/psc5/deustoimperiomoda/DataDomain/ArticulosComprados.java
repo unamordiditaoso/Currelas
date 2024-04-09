@@ -11,10 +11,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "articulosComprados")
 public class ArticulosComprados {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected int id;
 
     @ManyToOne
     @JoinColumn(name = "Articulo")
@@ -36,11 +35,11 @@ public class ArticulosComprados {
     }
 
     // Getters and setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

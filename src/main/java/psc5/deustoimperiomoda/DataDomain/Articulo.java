@@ -10,13 +10,13 @@ import jakarta.persistence.Table;
 @Table(name = "Articulo")
 public class Articulo {
     @Id
-    @GeneratedValue(strategy=GenerationType.TABLE)
-    long ID_art;
-    protected Categoria categoria;
-    protected String descripcion;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    protected int id_art;
     protected String nombre;
+    protected String descripcion;
     protected double precio;
     protected String tamano;
+    protected Categoria categoria;
 
     public Articulo(Categoria categoria, String descripcion, String nombre, double precio,
             String tamano) {
@@ -52,7 +52,7 @@ public class Articulo {
     }
 
     public long getid() {
-        return ID_art;
+        return id_art;
     }
 
     public String getNombre() {

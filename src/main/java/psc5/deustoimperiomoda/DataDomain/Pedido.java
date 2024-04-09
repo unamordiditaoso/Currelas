@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
 @Entity
 public class Pedido {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    long ID_ped;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int ID_ped;
     @ManyToOne
     protected Usuario usuario;
     protected Date fecha;

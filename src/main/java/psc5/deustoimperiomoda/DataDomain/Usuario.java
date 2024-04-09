@@ -2,10 +2,14 @@ package psc5.deustoimperiomoda.DataDomain;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "Usuario")
@@ -18,7 +22,9 @@ public class Usuario {
 
     @OneToMany
     protected List<Pedido> pedidos;
+    @Enumerated(EnumType.STRING)
     protected TipoUsuario tipoUsuario;
+   
 
     public Usuario(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos, TipoUsuario tipoUsuario) {
         this.contrasena = contrasena;
