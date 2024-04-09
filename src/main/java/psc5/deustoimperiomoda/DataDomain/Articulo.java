@@ -51,7 +51,7 @@ public class Articulo {
         this.descripcion = descripcion;
     }
 
-    public long getid() {
+    public Integer getid() {
         return id_art;
     }
 
