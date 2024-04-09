@@ -7,22 +7,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Table(name = "Usuario")
 @Entity
+@Table(name = "Usuario")
 public class Usuario {
     @Id
-    protected String dni;
+    protected String DNI;
     protected String contrasena;
     protected String nombre;
     protected String correo;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany
     protected List<Pedido> pedidos;
     protected TipoUsuario tipoUsuario;
 
     public Usuario(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos, TipoUsuario tipoUsuario) {
         this.contrasena = contrasena;
-        this.dni = dni;
+        this.DNI = dni;
         this.nombre = nombre;
         this.correo = correo;
         this.pedidos = new ArrayList<Pedido>();
@@ -36,10 +36,10 @@ public class Usuario {
         this.contrasena = contrasena;
     }
     public String getDni() {
-        return dni;
+        return DNI;
     }
     public void setDni(String dni) {
-        this.dni = dni;
+        this.DNI = dni;
     }
     public String getNombre() {
         return nombre;
@@ -70,7 +70,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario [contrasena=" + contrasena + ", dni=" + dni + ", nombre=" + nombre + ", correo=" + correo
+        return "Usuario [contrasena=" + contrasena + ", dni=" + DNI + ", nombre=" + nombre + ", correo=" + correo
                 + ", pedidos=" + pedidos + ", tipoUsuario=" + tipoUsuario + "]";
     }
     

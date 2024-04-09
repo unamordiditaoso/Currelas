@@ -1,6 +1,5 @@
 package psc5.deustoimperiomoda.DataDomain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,16 +16,14 @@ import jakarta.persistence.Table;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    long id;
+    long ID_ped;
     @ManyToOne
     protected Usuario usuario;
     protected Date fecha;
-    protected List<Articulo> articulosComprados;
 
     public Pedido(Usuario usuario, Date fecha, List<Articulo> articulosComprados) {
         this.usuario = usuario;
         this.fecha = fecha;
-        this.articulosComprados = new ArrayList<Articulo>();
     }
 
     public Usuario getUsuario() {
@@ -45,18 +42,10 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public List<Articulo> getArticulosComprados() {
-        return articulosComprados;
-    }
-
-    public void setArticulosComprados(List<Articulo> articulosComprados) {
-        this.articulosComprados = articulosComprados;
-    }
-
     @Override
     public String toString() {
         return "Pedido [usuario=" + usuario + ", fecha=" + fecha
-                + ", articulosComprados=" + articulosComprados + "]";
+                + "]";
     }
 
 }

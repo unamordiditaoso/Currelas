@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,8 +12,9 @@ import jakarta.persistence.Table;
 public class Envio {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    long id;
+    long ID_env;
     protected Usuario cliente;
+    @OneToOne
     protected Pedido pedido;
     protected Estado estado;
 
@@ -23,7 +25,7 @@ public class Envio {
     }
 
     public long getid() {
-        return id;
+        return ID_env;
     }
 
     public Usuario getCliente() {
