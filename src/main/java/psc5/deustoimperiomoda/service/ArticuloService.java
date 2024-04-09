@@ -68,27 +68,27 @@ private ArticuloRepository articuloRepository;
         articuloRepository.save(articulo);
     }
 
-    public Articulo updateArticulo(Articulo articulo, Integer id){
-        Optional<Articulo> result = articuloRepository.findById(articulo.getid());
+    //public Articulo updateArticulo(Articulo articulo, Integer id){
+    //    Optional<Articulo> result = articuloRepository.findById(articulo.getid());
 
-        if (!result.isEmpty()) {
-            Articulo updatedArticulo = result.get();
+    //    if (!result.isEmpty()) {
+    //        Articulo updatedArticulo = result.get();
 
-            updatedArticulo.setDescripcion(articulo.getDescripcion());
-            updatedArticulo.setCategoria(articulo.getCategoria());
-            updatedArticulo.setNombre(articulo.getNombre());
-            updatedArticulo.setPrecio(articulo.getPrecio());
-            updatedArticulo.setTamano(articulo.getTamano());
+    //        updatedArticulo.setDescripcion(articulo.getDescripcion());
+    //        updatedArticulo.setCategoria(articulo.getCategoria());
+    //        updatedArticulo.setNombre(articulo.getNombre());
+    //        updatedArticulo.setPrecio(articulo.getPrecio());
+    //        updatedArticulo.setTamano(articulo.getTamano());
 
-            articuloRepository.save(updatedArticulo);
+    //        articuloRepository.save(updatedArticulo);
 
-            if (!articuloRepository.findById(id).isEmpty()) {
-                return result.isEmpty() ? null : result.get();
-            }
-        }
+    //        if (!articuloRepository.findById(id).isEmpty()) {
+    //            return result.isEmpty() ? null : result.get();
+    //        }
+    //    }
 
-        return result.isEmpty() ? null : result.get();
-    }
+    //    return result.isEmpty() ? null : result.get();
+    //}
 
     public void deleteArticulo(Integer id){
         Optional<Articulo> result = articuloRepository.findById(id);

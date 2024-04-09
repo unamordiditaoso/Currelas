@@ -10,12 +10,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "Usuario")
 public class Usuario {
     @Id
-    protected String DNI;
+    protected String dni;
     protected String contrasena;
     protected String nombre;
     protected String correo;
@@ -28,7 +27,7 @@ public class Usuario {
 
     public Usuario(String contrasena, String dni, String nombre, String correo, List<Pedido> pedidos, TipoUsuario tipoUsuario) {
         this.contrasena = contrasena;
-        this.DNI = dni;
+        this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
         this.pedidos = new ArrayList<Pedido>();
@@ -42,10 +41,10 @@ public class Usuario {
         this.contrasena = contrasena;
     }
     public String getDni() {
-        return DNI;
+        return dni;
     }
     public void setDni(String dni) {
-        this.DNI = dni;
+        this.dni = dni;
     }
     public String getNombre() {
         return nombre;
@@ -76,7 +75,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario [contrasena=" + contrasena + ", dni=" + DNI + ", nombre=" + nombre + ", correo=" + correo
+        return "Usuario [contrasena=" + contrasena + ", dni=" + dni + ", nombre=" + nombre + ", correo=" + correo
                 + ", pedidos=" + pedidos + ", tipoUsuario=" + tipoUsuario + "]";
     }
     

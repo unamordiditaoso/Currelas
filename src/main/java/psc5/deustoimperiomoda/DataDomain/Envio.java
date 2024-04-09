@@ -1,9 +1,12 @@
 package psc5.deustoimperiomoda.DataDomain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -13,10 +16,16 @@ public class Envio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int ID_env;
+
+    @ManyToOne
     protected Usuario cliente;
+
     @OneToOne
     protected Pedido pedido;
+
+    @Enumerated(EnumType.STRING)
     protected Estado estado;
+
 
     public Envio(Usuario cliente, Pedido pedido, Estado estado) {
         this.cliente = cliente;

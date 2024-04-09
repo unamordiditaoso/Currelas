@@ -1,6 +1,8 @@
 package psc5.deustoimperiomoda.DataDomain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,7 +18,9 @@ public class Articulo {
     protected String descripcion;
     protected double precio;
     protected String tamano;
+    @Enumerated(EnumType.STRING)
     protected Categoria categoria;
+
 
     public Articulo(Categoria categoria, String descripcion, String nombre, double precio,
             String tamano) {
@@ -51,7 +55,7 @@ public class Articulo {
         this.descripcion = descripcion;
     }
 
-    public Integer getid() {
+    public long getid() {
         return id_art;
     }
 

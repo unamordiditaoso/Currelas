@@ -13,7 +13,7 @@ import psc5.deustoimperiomoda.DataDomain.Usuario;
 @Repository
 public interface EnvioRepository extends JpaRepository<Envio,Integer> {
     Optional<Envio> findById(Integer id);
-    Optional<Envio> findByUsuario(Usuario cliente);
+    Optional<Envio> findByCliente(Usuario cliente);
     Optional<Envio> findByPedido(Pedido pedido);
     Optional<Envio> findByEstado(Estado estado);
 }
