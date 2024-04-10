@@ -34,6 +34,15 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public Usuario() {
+        this.contrasena = "";
+        this.dni = "";
+        this.nombre = "";
+        this.correo = "";
+        this.pedidos = new ArrayList<Pedido>();
+        this.tipoUsuario = null;
+    }
+
     public String getContrasena() {
         return contrasena;
     }

@@ -31,8 +31,8 @@ public class Articulo {
         this.tamano = tamano;
     }
 
-    public Articulo(Categoria categoria) {
-        this.categoria = categoria;
+    public Articulo() {
+        this.categoria = null;
         this.descripcion = "";
         this.nombre = "";
         this.precio = 0;
@@ -57,6 +57,10 @@ public class Articulo {
 
     public Integer getid() {
         return id_art;
+    }
+
+    public void setId(Integer id) {
+        this.id_art = id;
     }
 
     public String getNombre() {

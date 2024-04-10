@@ -17,25 +17,33 @@ import psc5.deustoimperiomoda.dao.ArticuloRepository;
 
 @Service
 public class ArticuloService {
+
 private ArticuloRepository articuloRepository;
 private String connectionString;
 
     public ArticuloService(ArticuloRepository articuloRepository){
+        
         this.articuloRepository = articuloRepository;
+        
         connectionString = "jdbc:sqlite:DeustoImperioModa.db";
         loadDatos();
+        
     }
     
     public void loadDatos(){
-        String sql = "SELECT * FROM Articulo";
+        String sql = "SELECT * FROM articulo";
 		
 		try (Connection con = DriverManager.getConnection(connectionString);
 		    PreparedStatement pStmt = con.prepareStatement(sql)) {	
 			
 			ResultSet rs = pStmt.executeQuery();
-
+           
 			while(rs.next()) {
+                
 				Articulo articulo = new Articulo(Categoria.valueOf(rs.getString("categoria")), rs.getString("descripcion"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("tamano"));
+                articulo.setId(rs.getInt("id_art"));
+                System.out.println(articuloRepository);
+                System.out.println(articulo.getid() + " " + articulo.getNombre() + "\n\n\n");
 				articuloRepository.save(articulo);
 			}
 		} catch (SQLException e) {
