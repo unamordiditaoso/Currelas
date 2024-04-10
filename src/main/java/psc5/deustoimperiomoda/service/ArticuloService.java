@@ -42,8 +42,6 @@ private String connectionString;
                 
 				Articulo articulo = new Articulo(Categoria.valueOf(rs.getString("categoria")), rs.getString("descripcion"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("tamano"));
                 articulo.setId(rs.getInt("id_art"));
-                System.out.println(articuloRepository);
-                System.out.println(articulo.getid() + " " + articulo.getNombre() + "\n\n\n");
 				articuloRepository.save(articulo);
 			}
 		} catch (SQLException e) {
@@ -79,9 +77,9 @@ private String connectionString;
     }
 
     public Articulo updateArticulo(Articulo articulo, Integer id){
-        Optional<Articulo> result = articuloRepository.findById(articulo.getid());
-
+        Optional<Articulo> result = articuloRepository.findById(id);
         if (!result.isEmpty()) {
+            
             Articulo updatedArticulo = result.get();
 
             updatedArticulo.setDescripcion(articulo.getDescripcion());
@@ -89,14 +87,13 @@ private String connectionString;
             updatedArticulo.setNombre(articulo.getNombre());
             updatedArticulo.setPrecio(articulo.getPrecio());
             updatedArticulo.setTamano(articulo.getTamano());
-
+            
             articuloRepository.save(updatedArticulo);
 
             if (!articuloRepository.findById(id).isEmpty()) {
                 return result.isEmpty() ? null : result.get();
             }
         }
-
         return result.isEmpty() ? null : result.get();
     }
 

@@ -29,7 +29,7 @@ public class UsuarioService {
     }
 
     public void loadDatos(){
-        String sql = "SELECT * FROM articulo";
+        String sql = "SELECT * FROM usuario";
 		
 		try (Connection con = DriverManager.getConnection(connectionString);
 		    PreparedStatement pStmt = con.prepareStatement(sql)) {	
@@ -39,8 +39,6 @@ public class UsuarioService {
 			while(rs.next()) {
                 
 				Usuario usuario = new Usuario(rs.getString("contrasena"), rs.getString("dni"), rs.getString("nombre"), rs.getString("correo"), null, TipoUsuario.valueOf(rs.getString("tipo_usuario")));
-                System.out.println(usuarioRepository);
-                System.out.println(usuario.getDni() + " " + usuario.getNombre() + "\n\n\n");
 				usuarioRepository.save(usuario);
 			}
 		} catch (SQLException e) {
@@ -70,22 +68,34 @@ public class UsuarioService {
         return result.isEmpty() ? null : result;
     }
 
-    public void addUsuario(Usuario usuario){
-        usuarioRepository.save(usuario);
-    }
-
-    public Usuario updateArticulo(Usuario usuario, String dni){
-        Optional<Usuario> result = usuarioRepository.findByDni(usuario.getDni());
+    public Usuario updateUsuario(Usuario usuario, String dni){
+        Optional<Usuario> result = usuarioRepository.findByDni(dni);
 
         if (!result.isEmpty()) {
             Usuario updatedUsuario = result.get();
 
             updatedUsuario.setContrasena(usuario.getContrasena());
+            updatedUsuario.setNombre(usuario.getNombre());
             updatedUsuario.setCorreo(usuario.getCorreo());
             updatedUsuario.setPedidos(usuario.getPedidos());
             updatedUsuario.setTipoUsuario(usuario.getTipoUsuario());
 
             usuarioRepository.save(updatedUsuario);
+
+            if (!usuarioRepository.findByDni(dni).isEmpty()) {
+                return result.isEmpty() ? null : result.get();
+            }
+        }
+
+        return result.isEmpty() ? null : result.get();
+    }
+
+    public Usuario addUsuario(Usuario usuario, String dni){
+        Optional<Usuario> result = usuarioRepository.findByDni(usuario.getDni());
+
+        if (result.isEmpty()) {
+
+            usuarioRepository.save(usuario);
 
             if (!usuarioRepository.findByDni(dni).isEmpty()) {
                 return result.isEmpty() ? null : result.get();
