@@ -40,7 +40,7 @@ public class APIController {
 
     @RequestMapping("cliente/all")
     public List<Usuario> getClientes() {
-        return usuarioService.getAllUsuarios();
+        return usuarioService.getAllClientes();
     }
 
     @RequestMapping("cliente/validar")
