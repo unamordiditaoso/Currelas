@@ -33,8 +33,18 @@ public class Envio {
         this.estado = estado;
     }
 
-    public long getid() {
+    public Envio(){
+        this.cliente = new Usuario();
+        this.pedido = new Pedido();
+        this.estado = Estado.Preparacion;
+    }
+
+    public long getId() {
         return ID_env;
+    }
+
+    public void setId(Integer id) {
+        this.ID_env = id;
     }
 
     public Usuario getCliente() {

@@ -38,6 +38,24 @@ public class APIController {
         return usuarioService.getAllUsuarios();
     }
 
+    @RequestMapping("usuario/iniciarSesion")
+    public String validarContrasena(@RequestParam (name = "dni") String dni,
+                                    @RequestParam (name = "contr") String contrasena) {
+        if (validarUsuario(dni)){
+            Usuario usuario = usuarioService.getUsuario(dni);
+            if (usuario.getContrasena().equals(contrasena)){
+                if(validarCliente(dni)){
+                    return "cliente";
+                }
+                else {
+                    return "admin";
+                }
+            }
+            return "false";
+        }
+        return "false";
+    }
+
     @RequestMapping("cliente/all")
     public List<Usuario> getClientes() {
         return usuarioService.getAllClientes();

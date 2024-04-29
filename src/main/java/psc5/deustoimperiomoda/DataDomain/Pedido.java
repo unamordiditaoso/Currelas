@@ -1,5 +1,6 @@
 package psc5.deustoimperiomoda.DataDomain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +25,19 @@ public class Pedido {
     public Pedido(Usuario usuario, Date fecha, List<Articulo> articulosComprados) {
         this.usuario = usuario;
         this.fecha = fecha;
+    }
+
+    public Pedido() {
+        this.usuario = new Usuario();
+        this.fecha = new Date();
+    }
+
+    public long getId() {
+        return ID_ped;
+    }
+
+    public void setId(Integer id) {
+        this.ID_ped = id;
     }
 
     public Usuario getUsuario() {
