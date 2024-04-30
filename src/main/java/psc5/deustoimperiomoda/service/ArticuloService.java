@@ -72,8 +72,8 @@ private String connectionString;
         return result.isEmpty() ? null : result;
     }
 
-    public void addArticulo(Articulo articulo){
-        articuloRepository.save(articulo);
+    public Articulo addArticulo(Articulo articulo){
+        return articuloRepository.save(articulo);
     }
 
     public Articulo updateArticulo(Articulo articulo, Integer id){
