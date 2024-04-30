@@ -1,95 +1,97 @@
 package psc5.deustoimperiomoda.service;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import psc5.deustoimperiomoda.DataDomain.Articulo;
-import psc5.deustoimperiomoda.dao.UsuarioRepository;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
-class ArticuloServiceTest {
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
-    ArticuloService articuloService = mock(ArticuloService.class);
+import psc5.deustoimperiomoda.DataDomain.Articulo;
+import psc5.deustoimperiomoda.DataDomain.Categoria;
+import psc5.deustoimperiomoda.dao.ArticuloRepository;
 
-    @Test
-    void testLoadDatos() {
-        // Arrange
-        doNothing().when(articuloService).loadDatos();
+@RunWith(MockitoJUnitRunner.class)
+public class ArticuloServiceTest {
 
-        // Act
-        articuloService.loadDatos();
+    @Mock
+    private ArticuloService articuloService;
+    @Mock
+    private ArticuloRepository articuloRepository;
 
-        // Assert
-        verify(articuloService, times(1)).loadDatos();
-    }
-
-    @Test
-    public void testGetArticulo() {
-        // Arrange
-        Articulo expected = new Articulo();
-        when(articuloService.getArticulo(anyInt())).thenReturn(expected);
-
-        // Act
-        Articulo actual = articuloService.getArticulo(1);
-
-        // Assert
-        assertEquals(expected, actual);
+    @Before
+    public void setUp() {
+        // Configurar comportamiento predeterminado para los mocks
+        articuloService = new ArticuloService(articuloRepository);
     }
 
     /*@Test
-    void testGetByCategoria() {
-        // Arrange
-        List<Articulo> expected = new ArrayList<>();
-        when(articuloService.getByCategoria(anyString())).thenReturn(expected);
+    public void testLoadDatosWithAssertNotNull() {
+    Object data = articuloService.loadDatos();
+    
+    // Assert
+    assertNotNull(data);
+}*/
 
-        // Act
-        List<Articulo> actual = articuloService.getByCategoria("categoria");
+    @Test
+    public void testGetArticuloWithAssertEquals() {
+    Articulo articulo1 = new Articulo();
+    when(articuloRepository.findById(any())).thenReturn(java.util.Optional.of(articulo1));
+    Articulo articulo2 = articuloService.getArticulo(1);
 
+    assertEquals(articulo1, articulo2);
+}
+
+    @Test
+    public void testGetAllArticulos() {
+        List<Articulo> articulos = articuloService.getAllArticulos();
+        assertNotNull(articulos);
+    }
+
+    /*@Test
+    public void testGetByCategoria() {
+        Articulo articulo = new Articulo();
+        articulo.setCategoria(Categoria.Calzado);
+        List<Articulo> lista1 = List.of(articulo);
+        List<Articulo> lista2 = articuloService.getByCategoria(Categoria.Calzado);
         // Assert
-        assertEquals(expected, actual);
+        assertEquals(lista1, lista2);
     }*/
 
     @Test
     public void testAddArticulo() {
-        // Arrange
-        Articulo articulo = new Articulo();
-        when(articuloService.addArticulo(articulo)).thenReturn(articulo);
-
-        // Act
-        Articulo actual = articuloService.addArticulo(articulo);
-
-        // Assert
-        assertEquals(articulo, actual);
+    Articulo articulo = new Articulo();
+    when(articuloService.addArticulo(any(Articulo.class))).thenReturn(articulo);
+    Articulo articulo2 = articuloService.addArticulo(articulo);
+    assertNotNull(articulo2);
     }
 
     @Test
     public void testUpdateArticulo() {
-        // Arrange
-        Articulo articulo = new Articulo();
-        when(articuloService.updateArticulo(articulo, null)).thenReturn(articulo);
-
-        // Act
-        Articulo actual = articuloService.updateArticulo(articulo, null);
-
-        // Assert
-        assertEquals(articulo, actual);
+    Articulo articuloViejo = new Articulo();
+    articuloViejo.setId(1);
+    articuloViejo.setNombre("Camiseta");
+    articuloService.updateArticulo(articuloViejo, 1);
+    assertEquals("Camiseta", articuloViejo.getNombre());
     }
 
     @Test
     public void testDeleteArticulo() {
-        // Arrange
-        doNothing().when(articuloService).deleteArticulo(anyInt());
-
-        // Act
+        Articulo articulo = new Articulo();
+        articulo.setId(1);
         articuloService.deleteArticulo(1);
-
-        // Assert
-        verify(articuloService, times(1)).deleteArticulo(1);
+        assertNull(articuloService.getArticulo(1));
     }
 }
