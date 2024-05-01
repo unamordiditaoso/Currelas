@@ -104,6 +104,7 @@ public class PedidoService {
                 
     
                 Pedido pedido = new Pedido(usuario, articulos, estado);
+
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
@@ -113,4 +114,7 @@ public class PedidoService {
         return pedidos;
     }
 
+    public List<Pedido> getAllPedidos2() {
+        return pedidoRepository.findAll();
+    }
 }

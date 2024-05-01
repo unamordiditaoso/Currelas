@@ -156,7 +156,11 @@ public class APIController {
 
     @RequestMapping("pedido/all")
     public List<Pedido> getAllPedidos() {
-        System.out.println(pedidoService.getAllPedidos());
         return pedidoService.getAllPedidos();
+    }
+
+    @RequestMapping("pedido2/all")
+    public List<Pedido> getPedidos() {
+        return pedidoService.getAllPedidos2();
     }
 }
