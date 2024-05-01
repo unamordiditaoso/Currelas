@@ -45,10 +45,10 @@ public class APIController {
             Usuario usuario = usuarioService.getUsuario(dni);
             if (usuario.getContrasena().equals(contrasena)){
                 if(validarCliente(dni)){
-                    return "cliente";
+                    return "Cliente";
                 }
                 else {
-                    return "admin";
+                    return "Administrador";
                 }
             }
             return "false";

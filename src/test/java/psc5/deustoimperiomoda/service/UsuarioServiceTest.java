@@ -1,93 +1,76 @@
-/*package psc5.deustoimperiomoda.service;
+package psc5.deustoimperiomoda.service;
 
-import org.junit.jupiter.api.Test;
-
+import psc5.deustoimperiomoda.DataDomain.Articulo;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
 import psc5.deustoimperiomoda.dao.UsuarioRepository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-class UsuarioServiceTest {
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-    UsuarioRepository usuarioRepository = mock(UsuarioRepository.class);
-    UsuarioService usuarioService;
 
-    @Test
-    void testUsuarioServiceConstructor() {
-        // Arrange & Act
+@RunWith(MockitoJUnitRunner.class)
+public class UsuarioServiceTest {
+
+    @Mock
+    private UsuarioService usuarioService;
+    @Mock
+    private UsuarioRepository usuarioRepository;
+
+    @Before
+    public void testUsuarioServiceConstructor() {
         usuarioService = new UsuarioService(usuarioRepository);
-
-        // Assert
-        assertNotNull(usuarioService);
     }
 
-    @Test
+    /*@Test
     void testLoadDatos() {
-        // Arrange
-        usuarioService = new UsuarioService(usuarioRepository);
-        doNothing().when(usuarioService).loadDatos();
+    }*/
 
-        // Act
-        usuarioService.loadDatos();
+    @Test
+    public void testGetUsuario() {
+    Usuario usuario1 = new Usuario();
+    when(usuarioRepository.findByDni(any())).thenReturn(java.util.Optional.of(usuario1));
+    Usuario usuario2 = usuarioService.getUsuario("12345678A");
 
-        // Assert
-        verify(usuarioService, times(1)).loadDatos();
+    assertEquals(usuario1, usuario2);
     }
 
     @Test
-    void testGetUsuario() {
-        // Arrange
-        Usuario expected = new Usuario();
-        when(usuarioRepository.findByDni(anyString())).thenReturn(Optional.of(expected));
-
-        // Act
-        Usuario actual = usuarioService.getUsuario("12345678A");
-
-        // Assert
-        assertEquals(expected, actual);
+    public void testUpdateUsuario() {
+        Usuario UsuarioViejo = new Usuario();
+        UsuarioViejo.setDni("12345678A");
+        UsuarioViejo.setNombre("Usuario1");
+        usuarioService.updateUsuario(UsuarioViejo, "12345678A");
+        assertEquals("Usuario1", UsuarioViejo.getNombre());
     }
 
-    @Test
-    void testUpdateUsuario() {
-        // Arrange
+    /*@Test
+    public void testAddUsuario() {
         Usuario usuario = new Usuario();
-        when(usuarioRepository.findByDni(anyString())).thenReturn(Optional.of(usuario));
-        when(usuarioRepository.save(usuario)).thenReturn(usuario);
-
-        // Act
-        Usuario actual = usuarioService.updateUsuario(usuario, "12345678A");
-
-        // Assert
-        assertEquals(usuario, actual);
-    }
+        when(usuarioRepository.findByDni("123456789A")).thenReturn(Optional.empty());
+        Usuario usuario2 = usuarioService.addUsuario(usuario, "123456789A");
+        assertNotNull(usuario2);
+    }*/
 
     @Test
-    void testAddUsuario() {
-        // Arrange
+    public void testDeleteUsuario() {
         Usuario usuario = new Usuario();
-        when(usuarioRepository.findByDni(anyString())).thenReturn(Optional.empty());
-        when(usuarioRepository.save(usuario)).thenReturn(usuario);
-
-        // Act
-        Usuario actual = usuarioService.addUsuario(usuario, "12345678A");
-
-        // Assert
-        assertEquals(usuario, actual);
+        usuario.setDni("12345678A");
+        usuarioService.deleteUsuario( "12345678A");
+        assertNull(usuarioService.getUsuario("12345678A"));
     }
-
-    @Test
-    void testDeleteUsuario() {
-        // Arrange
-        doNothing().when(usuarioRepository).deleteById(anyString());
-
-        // Act
-        usuarioService.deleteUsuario("12345678A");
-
-        // Assert
-        verify(usuarioRepository, times(1)).deleteById("12345678A");
-    }
-}*/
+}
