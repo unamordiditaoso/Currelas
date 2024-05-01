@@ -87,6 +87,12 @@ public class APIControllerTest {
     }
 
     @Test
+    public void testGetPedidos() {
+        apiController.getPedidos();
+        verify(pedidoService).getAllPedidos();
+    }
+
+    @Test
     public void testValidarCliente() {
         Usuario usuario = new Usuario();
         usuario.setDni("dni"); 
@@ -161,4 +167,8 @@ public class APIControllerTest {
         assertTrue(apiController.crearArticulo("nom", "desc", "Ropa", 100.0, "tam"));
     }
 
+    @Test
+    public void testCrearPedido() {
+        assertTrue(apiController.crearPedido("dni"));
+    }
 }

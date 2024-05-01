@@ -26,10 +26,17 @@ public class Pedido {
 
     public Pedido(Usuario usuario, List<Articulo> articulosComprados, Estado estado) {
         this.usuario = usuario;
+        this.estado = estado;
+    }
+
+    public Pedido(Usuario usuario, Estado estado) {
+        this.usuario = usuario;
+        this.estado = estado;
     }
 
     public Pedido() {
         this.usuario = new Usuario();
+        this.estado = Estado.Preparacion;
     }
 
     public long getId() {

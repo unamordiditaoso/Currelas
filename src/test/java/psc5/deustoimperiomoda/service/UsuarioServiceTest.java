@@ -69,6 +69,7 @@ public class UsuarioServiceTest {
         UsuarioViejo.setNombre("Usuario1");
         usuarioService.updateUsuario(UsuarioViejo, "dni");
         usuarioService.updateUsuario(UsuarioViejo, "notDNI");
+        assertEquals("dni", UsuarioViejo.getDni());
     }
 
     @Test
