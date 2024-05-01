@@ -125,6 +125,7 @@ public class APIControllerTest {
         when(usuarioService.getAllClientes()).thenReturn(Arrays.asList(usuario));
         when(usuarioService.getUsuario("dni")).thenReturn(usuario);
         assertTrue(apiController.updateCliente("dni", "contrasena", "nombre", "correo", new ArrayList<>()));
+        assertFalse(apiController.updateCliente("notDNI", "contrasena", "nombre", "correo", new ArrayList<>())); 
     }
 
     @Test
@@ -147,7 +148,9 @@ public class APIControllerTest {
     @Test
     public void testCrearUsuario() {
         when(usuarioService.getUsuario("dni")).thenReturn(null);
+        when(usuarioService.getUsuario("notDNI")).thenReturn(usuario);
         assertTrue(apiController.crearUsuario("dni", "cont", "nom", "cor", new ArrayList<>(), "Administrador"));
+        assertFalse(apiController.crearUsuario("notDNI", "cont", "nom", "cor", new ArrayList<>(), "Administrador"));
     }
 
     @Test
