@@ -20,8 +20,9 @@ public class Pedido {
     @ManyToOne
     protected Usuario usuario;
     protected Date fecha;
+    protected Estado estado;
 
-    public Pedido(Usuario usuario, Date fecha, List<Articulo> articulosComprados) {
+    public Pedido(Usuario usuario, Date fecha, List<Articulo> articulosComprados, Estado estado) {
         this.usuario = usuario;
         this.fecha = fecha;
     }
@@ -53,6 +54,14 @@ public class Pedido {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override

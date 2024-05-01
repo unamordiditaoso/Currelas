@@ -27,7 +27,7 @@ public class PedidoTest {
         Usuario usuario = new Usuario();
         Date fecha = new Date();
         
-        Pedido nuevoPedido = new Pedido(usuario, fecha, new ArrayList<>());
+        Pedido nuevoPedido = new Pedido(usuario, fecha, new ArrayList<>(), Estado.Preparacion);
         assertNotNull(nuevoPedido);
     }
 
