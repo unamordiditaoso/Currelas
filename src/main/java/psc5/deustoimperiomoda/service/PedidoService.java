@@ -49,7 +49,6 @@ public class PedidoService {
                 int idPedido = rs.getInt("ID_ped");
                 // Carga los artículos para este pedido
                 List<Articulo> articulos = loadArticulosbyPedido(idPedido);
-                System.out.println(articulos.get(0).getNombre());
                 Pedido pedido = new Pedido(usuario, articulos, estado);
               
             }
@@ -84,37 +83,6 @@ public class PedidoService {
     }
 
     public List<Pedido> getAllPedidos() {
-        List<Pedido> pedidos = new ArrayList<>();
-    
-        String sql = "SELECT * FROM pedido";
-    
-        try (Connection con = DriverManager.getConnection(connectionString);
-             PreparedStatement pStmt = con.prepareStatement(sql)) {
-    
-            ResultSet rs = pStmt.executeQuery();
-    
-            while(rs.next()) {
-                Usuario usuario = new Usuario(); // Necesitas obtener el usuario de alguna manera
-                Estado estado = Estado.valueOf(rs.getString("estado")); // Asumiendo que "estado" es un enum
-                // Obtén el ID del pedido
-                int idPedido = rs.getInt("ID_ped");
-    
-                // Carga los artículos para este pedido
-                List<Articulo> articulos = loadArticulosbyPedido(idPedido);
-                
-    
-                Pedido pedido = new Pedido(usuario, articulos, estado);
-
-                pedidos.add(pedido);
-            }
-        } catch (SQLException e) {
-            // Deberías manejar esta excepción de alguna manera
-        }
-    
-        return pedidos;
-    }
-
-    public List<Pedido> getAllPedidos2() {
         return pedidoRepository.findAll();
     }
 }

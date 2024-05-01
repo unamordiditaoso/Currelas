@@ -155,12 +155,7 @@ public class APIController {
     }
 
     @RequestMapping("pedido/all")
-    public List<Pedido> getAllPedidos() {
-        return pedidoService.getAllPedidos();
-    }
-
-    @RequestMapping("pedido2/all")
     public List<Pedido> getPedidos() {
-        return pedidoService.getAllPedidos2();
+        return pedidoService.getAllPedidos();
     }
 }
