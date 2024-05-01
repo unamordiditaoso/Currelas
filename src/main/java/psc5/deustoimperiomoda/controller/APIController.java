@@ -7,6 +7,7 @@ import psc5.deustoimperiomoda.service.PedidoService;
 import psc5.deustoimperiomoda.service.UsuarioService;
 import psc5.deustoimperiomoda.DataDomain.Articulo;
 import psc5.deustoimperiomoda.DataDomain.Categoria;
+import psc5.deustoimperiomoda.DataDomain.Estado;
 import psc5.deustoimperiomoda.DataDomain.Pedido;
 import psc5.deustoimperiomoda.DataDomain.TipoUsuario;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 
@@ -158,4 +161,14 @@ public class APIController {
     public List<Pedido> getPedidos() {
         return pedidoService.getAllPedidos();
     }
+
+    @RequestMapping("pedido/crear")
+    public boolean crearPedido(@RequestParam (name = "dni") String dni) {
+
+        Usuario u = usuarioService.getUsuario(dni);
+        pedidoService.addPedido(new Pedido(u, Estado.Preparacion));
+
+        return true;
+    }
+    
 }

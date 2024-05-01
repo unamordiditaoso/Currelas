@@ -50,7 +50,6 @@ public class PedidoService {
                 // Carga los artículos para este pedido
                 List<Articulo> articulos = loadArticulosbyPedido(idPedido);
                 Pedido pedido = new Pedido(usuario, articulos, estado);
-              
             }
         } catch (SQLException e) {
             // Deberías manejar esta excepción de alguna manera
@@ -84,5 +83,9 @@ public class PedidoService {
 
     public List<Pedido> getAllPedidos() {
         return pedidoRepository.findAll();
+    }
+
+    public Pedido addPedido(Pedido pedido){
+        return pedidoRepository.save(pedido);
     }
 }
