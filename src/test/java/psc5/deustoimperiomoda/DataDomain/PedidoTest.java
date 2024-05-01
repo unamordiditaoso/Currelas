@@ -27,7 +27,7 @@ public class PedidoTest {
         Usuario usuario = new Usuario();
         Date fecha = new Date();
         
-        Pedido nuevoPedido = new Pedido(usuario, fecha, new ArrayList<>(), Estado.Preparacion);
+        Pedido nuevoPedido = new Pedido(usuario, new ArrayList<>(), Estado.Preparacion);
         assertNotNull(nuevoPedido);
     }
 
@@ -36,12 +36,6 @@ public class PedidoTest {
     public void testGetUsuario(){
         pedido.setUsuario(new Usuario());
         assertNotNull(pedido.getUsuario());
-    }
-
-    @Test
-    public void testGetFecha(){
-        pedido.setFecha(new Date());
-        assertNotNull(pedido.getFecha());
     }
 
     @Test

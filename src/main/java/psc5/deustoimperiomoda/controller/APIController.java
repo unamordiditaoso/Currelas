@@ -3,9 +3,11 @@ package psc5.deustoimperiomoda.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import psc5.deustoimperiomoda.service.ArticuloService;
+import psc5.deustoimperiomoda.service.PedidoService;
 import psc5.deustoimperiomoda.service.UsuarioService;
 import psc5.deustoimperiomoda.DataDomain.Articulo;
 import psc5.deustoimperiomoda.DataDomain.Categoria;
+import psc5.deustoimperiomoda.DataDomain.Pedido;
 import psc5.deustoimperiomoda.DataDomain.TipoUsuario;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
 
@@ -22,10 +24,12 @@ public class APIController {
     
     private ArticuloService articuloService;
     private UsuarioService usuarioService;
+    private PedidoService pedidoService;
 
-    public APIController(ArticuloService articuloService, UsuarioService usuarioService) {
+    public APIController(ArticuloService articuloService, UsuarioService usuarioService, PedidoService pedidoService) {
         this.articuloService = articuloService;
         this.usuarioService = usuarioService;
+        this.pedidoService = pedidoService;   
     }
 
     @RequestMapping("articulo/all")
@@ -148,5 +152,11 @@ public class APIController {
         } else {
             return false;
         }
+    }
+
+    @RequestMapping("pedido/all")
+    public List<Pedido> getAllPedidos() {
+        System.out.println(pedidoService.getAllPedidos());
+        return pedidoService.getAllPedidos();
     }
 }

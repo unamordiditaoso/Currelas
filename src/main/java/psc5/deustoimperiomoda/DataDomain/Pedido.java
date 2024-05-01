@@ -1,9 +1,11 @@
 package psc5.deustoimperiomoda.DataDomain;
 
-import java.util.Date;
+
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,17 +21,15 @@ public class Pedido {
     protected int ID_ped;
     @ManyToOne
     protected Usuario usuario;
-    protected Date fecha;
+    @Enumerated(EnumType.STRING)
     protected Estado estado;
 
-    public Pedido(Usuario usuario, Date fecha, List<Articulo> articulosComprados, Estado estado) {
+    public Pedido(Usuario usuario, List<Articulo> articulosComprados, Estado estado) {
         this.usuario = usuario;
-        this.fecha = fecha;
     }
 
     public Pedido() {
         this.usuario = new Usuario();
-        this.fecha = new Date();
     }
 
     public long getId() {
@@ -48,14 +48,6 @@ public class Pedido {
         this.usuario = usuario;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
     public Estado getEstado() {
         return estado;
     }
@@ -66,7 +58,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido [usuario=" + usuario + ", fecha=" + fecha
+        return "Pedido [usuario=" + usuario
                 + "]";
     }
 

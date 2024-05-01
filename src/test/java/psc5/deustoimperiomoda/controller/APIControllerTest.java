@@ -21,6 +21,7 @@ import psc5.deustoimperiomoda.DataDomain.Articulo;
 import psc5.deustoimperiomoda.DataDomain.TipoUsuario;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
 import psc5.deustoimperiomoda.service.ArticuloService;
+import psc5.deustoimperiomoda.service.PedidoService;
 import psc5.deustoimperiomoda.service.UsuarioService;
 
 
@@ -32,6 +33,8 @@ public class APIControllerTest {
     @Mock
     private UsuarioService usuarioService;
     @Mock
+    private PedidoService pedidoService;
+    @Mock
     private Usuario usuario;
 
     @InjectMocks
@@ -40,7 +43,7 @@ public class APIControllerTest {
 
     @BeforeEach
     public void setUp() {
-        apiController = new APIController(articuloService, usuarioService);
+        apiController = new APIController(articuloService, usuarioService, pedidoService);
         usuario = new Usuario("contrasena", "dni", "nombre", "correo", new ArrayList<>(), TipoUsuario.Cliente);
     }
 

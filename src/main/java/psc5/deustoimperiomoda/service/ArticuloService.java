@@ -37,7 +37,6 @@ private String connectionString;
 			while(rs.next()) {
 				Articulo articulo = new Articulo(Categoria.valueOf(rs.getString("categoria")), rs.getString("descripcion"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("tamano"));
                 articulo.setId(rs.getInt("id_art"));
-                
 				articuloRepository.save(articulo);
 			}
 		} catch (SQLException e) {
