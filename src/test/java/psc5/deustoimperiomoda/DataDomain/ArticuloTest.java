@@ -16,13 +16,8 @@ public class ArticuloTest {
 
     @Before
     public void setUp() {
-        // Configurar comportamiento predeterminado para los mocks
        articulo = new Articulo();
     }
-
- 
-
-    // Repite el mismo proceso para probar los otros getters y setters...
 
     @Test
     public void testConstructor() {
@@ -32,8 +27,8 @@ public class ArticuloTest {
         double precio = 100;
         String tamano = "S";
         
-        // Crear un nuevo objeto Articulo utilizando el constructor
         Articulo nuevoArticulo = new Articulo(categoria, descripcion, nombre, precio, tamano);
+        assertNotNull(nuevoArticulo);
     }
 
 

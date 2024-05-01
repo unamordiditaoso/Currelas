@@ -1,34 +1,25 @@
 package psc5.deustoimperiomoda.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import psc5.deustoimperiomoda.DataDomain.Articulo;
 import psc5.deustoimperiomoda.DataDomain.TipoUsuario;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
-import psc5.deustoimperiomoda.dao.ArticuloRepository;
 import psc5.deustoimperiomoda.service.ArticuloService;
 import psc5.deustoimperiomoda.service.UsuarioService;
 
@@ -40,7 +31,9 @@ public class APIControllerTest {
     private ArticuloService articuloService;
     @Mock
     private UsuarioService usuarioService;
-    
+    @Mock
+    private Usuario usuario;
+
     @InjectMocks
     private APIController apiController;
 
@@ -48,6 +41,7 @@ public class APIControllerTest {
     @BeforeEach
     public void setUp() {
         apiController = new APIController(articuloService, usuarioService);
+        usuario = new Usuario("contrasena", "dni", "nombre", "correo", new ArrayList<>(), TipoUsuario.Cliente);
     }
 
     @Test
@@ -69,12 +63,18 @@ public class APIControllerTest {
         usuario.setContrasena("contrasena");
 
         when(usuarioService.getUsuario("dni")).thenReturn(usuario);
+        
 
-        String resultado = apiController.validarContrasena("dni", "contrasena");
-
-        verify(usuarioService, times(3)).getUsuario("dni");
-
+        String resultado = apiController.validarContrasena(null, null);
+        assertEquals("false", resultado);
+        resultado = apiController.validarContrasena("dni", "a");
+        assertEquals("false", resultado);
+        resultado = apiController.validarContrasena("dni", "contrasena");
         assertEquals("Administrador", resultado);
+        when(usuarioService.getAllClientes()).thenReturn(Arrays.asList(usuario));
+        resultado = apiController.validarContrasena("dni", "contrasena");
+        assertEquals("Cliente", resultado);
+
     }
 
     @Test
@@ -120,9 +120,12 @@ public class APIControllerTest {
         assertFalse(apiController.updateArticulo(2, "nombre", "desc", "Ropa", 100.0, "tam"));
     }
 
-    /*@Test
+    @Test
     public void updateClienteTest() {
-    }*/
+        when(usuarioService.getAllClientes()).thenReturn(Arrays.asList(usuario));
+        when(usuarioService.getUsuario("dni")).thenReturn(usuario);
+        assertTrue(apiController.updateCliente("dni", "contrasena", "nombre", "correo", new ArrayList<>()));
+    }
 
     @Test
     public void testDeleteArticulo() {
@@ -130,21 +133,26 @@ public class APIControllerTest {
         Articulo articulo = new Articulo();
         when(articuloService.getArticulo(id)).thenReturn(articulo);
         assertTrue(apiController.deleteArticulo(id));
+        apiController.deleteArticulo(2);
     }
 
-    /*@Test
+    @Test
     public void testDeleteCliente() {
-        String dni = "12345678";
-        Usuario usuario = new Usuario();
-        when(usuarioService.getUsuario(dni)).thenReturn(usuario);
-        Mockito.doNothing().when(usuarioService).deleteUsuario(dni);
-        assertTrue(apiController.deleteCliente(dni));
+        when(usuarioService.getAllClientes()).thenReturn(Arrays.asList(usuario));
+        when(usuarioService.getUsuario("dni")).thenReturn(usuario);
+        assertTrue(apiController.deleteCliente("dni"));
+        apiController.deleteCliente("notDNI");
     }
 
     @Test
     public void testCrearUsuario() {
-        
-    }*/
+        when(usuarioService.getUsuario("dni")).thenReturn(null);
+        assertTrue(apiController.crearUsuario("dni", "cont", "nom", "cor", new ArrayList<>(), "Administrador"));
+    }
 
+    @Test
+    public void testCrearArticulo() {
+        assertTrue(apiController.crearArticulo("nom", "desc", "Ropa", 100.0, "tam"));
+    }
 
 }

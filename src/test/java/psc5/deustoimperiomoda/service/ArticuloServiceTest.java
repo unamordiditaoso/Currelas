@@ -1,11 +1,12 @@
 package psc5.deustoimperiomoda.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import psc5.deustoimperiomoda.DataDomain.Articulo;
+import psc5.deustoimperiomoda.DataDomain.Categoria;
 import psc5.deustoimperiomoda.dao.ArticuloRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,45 +26,42 @@ public class ArticuloServiceTest {
     private ArticuloService articuloService;
     @Mock
     private ArticuloRepository articuloRepository;
-
+    @Mock
+    private Articulo articulo;
+    @Mock
+    private Articulo articulo1;
+    
     @Before
     public void setUp() {
-        // Configurar comportamiento predeterminado para los mocks
-        articuloService = new ArticuloService(articuloRepository);
+        articulo = new Articulo(Categoria.Ropa, "Descripcion", "Nombre", 100, "L");
+        articulo.setId(1);
+        articulo1 = new Articulo(Categoria.RopaDeportiva, "Descripcion", "Nombre", 100, "L");
+        articulo.setId(2);
+        this.articuloService = new ArticuloService(this.articuloRepository);
     }
-
-    /*@Test
-    public void testLoadDatos() {
-    Object data = articuloService.loadDatos();
-    
-    // Assert
-    assertNotNull(data);
-}*/
 
     @Test
     public void testGetArticulo() {
-        Articulo articulo1 = new Articulo();
-        when(articuloRepository.findById(any())).thenReturn(java.util.Optional.of(articulo1));
-        Articulo articulo2 = articuloService.getArticulo(1);
+        when(articuloRepository.findById(1)).thenReturn(articulo);
+        Articulo articulo1 = articuloService.getArticulo(1);
+        assertNotNull(articulo1);
+    }
 
-        assertEquals(articulo1, articulo2);
-}
+    @Test
+    public void testGetByCategoria() {
+        when(articuloService.getAllArticulos()).thenReturn(Arrays.asList(articulo, articulo1));
+        List<Articulo> articulos = articuloService.getByCategoria(Categoria.Ropa);
+        when(articuloService.getAllArticulos()).thenReturn(Arrays.asList(articulo, articulo1));
+        articuloService.getByCategoria(Categoria.Accesorios);
+        assertEquals(Categoria.Ropa, articulos.get(0).getCategoria());
+    }
 
     @Test
     public void testGetAllArticulos() {
+        when(articuloService.getAllArticulos()).thenReturn(Arrays.asList(articulo));
         List<Articulo> articulos = articuloService.getAllArticulos();
         assertNotNull(articulos);
     }
-
-    /*@Test
-    public void testGetByCategoria() {
-        Articulo articulo = new Articulo();
-        articulo.setCategoria(Categoria.Calzado);
-        List<Articulo> lista1 = List.of(articulo);
-        List<Articulo> lista2 = articuloService.getByCategoria(Categoria.Calzado);
-        // Assert
-        assertEquals(lista1, lista2);
-    }*/
 
     @Test
     public void testAddArticulo() {
@@ -74,17 +73,20 @@ public class ArticuloServiceTest {
 
     @Test
     public void testUpdateArticulo() {
+        when(articuloRepository.findById(1)).thenReturn(articulo);
         Articulo articuloViejo = new Articulo();
         articuloViejo.setId(1);
         articuloViejo.setNombre("Camiseta");
         articuloService.updateArticulo(articuloViejo, 1);
+        articuloService.updateArticulo(articuloViejo, 2);
         assertEquals("Camiseta", articuloViejo.getNombre());
     }
 
     @Test
     public void testDeleteArticulo() {
-        Articulo articulo = new Articulo();
-        articulo.setId(1);
+        when(articuloRepository.findById(1)).thenReturn(articulo);
+        articuloService.deleteArticulo(1);
+        when(articuloRepository.findById(1)).thenReturn(null);
         articuloService.deleteArticulo(1);
         assertNull(articuloService.getArticulo(1));
     }

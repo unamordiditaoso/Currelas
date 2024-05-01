@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -21,13 +20,10 @@ public class ArticuloService {
 private ArticuloRepository articuloRepository;
 private String connectionString;
 
-    public ArticuloService(ArticuloRepository articuloRepository){
-        
-        this.articuloRepository = articuloRepository;
-        
+    public ArticuloService(ArticuloRepository articuloRepository1){
+        this.articuloRepository = articuloRepository1;
         connectionString = "jdbc:sqlite:DeustoImperioModa.db";
         loadDatos();
-        
     }
     
     public void loadDatos(){
@@ -39,19 +35,19 @@ private String connectionString;
 			ResultSet rs = pStmt.executeQuery();
            
 			while(rs.next()) {
-                
 				Articulo articulo = new Articulo(Categoria.valueOf(rs.getString("categoria")), rs.getString("descripcion"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("tamano"));
                 articulo.setId(rs.getInt("id_art"));
+                
 				articuloRepository.save(articulo);
 			}
 		} catch (SQLException e) {
 		}
     }
 
-    public Articulo getArticulo(Integer id){
-        Optional<Articulo> result = articuloRepository.findById(id);
+    public Articulo getArticulo(int id){
+        Articulo result = articuloRepository.findById(id);
         
-        return result.isEmpty() ? null : result.get();
+        return result;
     }
 
     public List<Articulo> getAllArticulos(){
@@ -76,11 +72,11 @@ private String connectionString;
         return articuloRepository.save(articulo);
     }
 
-    public Articulo updateArticulo(Articulo articulo, Integer id){
-    Optional<Articulo> result = articuloRepository.findById(id);
-    if (!result.isEmpty()) {
+    public Articulo updateArticulo(Articulo articulo, int id){
+    Articulo result = articuloRepository.findById(id);
+    if (!(result == null)) {
         
-        Articulo updatedArticulo = result.get();
+        Articulo updatedArticulo = result;
 
         updatedArticulo.setDescripcion(articulo.getDescripcion());
         updatedArticulo.setCategoria(articulo.getCategoria());
@@ -90,18 +86,16 @@ private String connectionString;
         
         articuloRepository.save(updatedArticulo);
 
-        if (!articuloRepository.findById(id).isEmpty()) {
-            return result.isEmpty() ? null : result.get();
-        }
+        return result;
     }
-    return result.isEmpty() ? null : result.get();
+    return result;
 }
 
-    public void deleteArticulo(Integer id){
-        Optional<Articulo> result = articuloRepository.findById(id);
+    public void deleteArticulo(int id){
+        Articulo result = articuloRepository.findById(id);
 
-        if (!result.isEmpty()) {
-            articuloRepository.delete(result.get());
+        if (!(result == null)) {
+            articuloRepository.delete(result);
         }
     }
 }

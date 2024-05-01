@@ -1,15 +1,14 @@
 package psc5.deustoimperiomoda.dao;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import psc5.deustoimperiomoda.DataDomain.Usuario;
 import psc5.deustoimperiomoda.DataDomain.TipoUsuario;
 
 
-
+@Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String>{
-    Optional<Usuario> findByDni(String dni);
-    Optional<Usuario> findByTipoUsuario(TipoUsuario tipoUsuario);
+    Usuario findByDni(String dni);
+    Usuario findByTipoUsuario(TipoUsuario tipoUsuario);
 }

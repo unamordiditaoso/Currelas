@@ -1,14 +1,13 @@
 package psc5.deustoimperiomoda.dao;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import psc5.deustoimperiomoda.DataDomain.Pedido;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
 
-
+@Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
-    Optional<Pedido> findById(Integer id);
-    Optional<Pedido> findByUsuario(Usuario usuario);
+    Pedido findById(int id);
+    Pedido findByUsuario(Usuario usuario);
 }

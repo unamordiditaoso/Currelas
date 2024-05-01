@@ -16,13 +16,8 @@ public class EnvioTest {
 
     @Before
     public void setUp() {
-        // Configurar comportamiento predeterminado para los mocks
        envio = new Envio();
     }
-
- 
-
-    // Repite el mismo proceso para probar los otros getters y setters...
 
     @Test
     public void testConstructor() {
@@ -30,8 +25,8 @@ public class EnvioTest {
         Pedido pedido = new Pedido();
         Estado estado = Estado.Preparacion;
         
-        // Crear un nuevo objeto Articulo utilizando el constructor
         Envio nuevoEnvio = new Envio(usuario, pedido, estado);
+        assertNotNull(nuevoEnvio);
     }
 
 

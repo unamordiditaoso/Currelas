@@ -18,13 +18,9 @@ public class UsuarioTest {
 
     @Before
     public void setUp() {
-        // Configurar comportamiento predeterminado para los mocks
        usuario = new Usuario();
     }
 
- 
-
-    // Repite el mismo proceso para probar los otros getters y setters...
 
     @Test
     public void testConstructor() {
@@ -33,9 +29,10 @@ public class UsuarioTest {
         String nombre = "Nombre";
         String dni = "DNI";
         String correo = "Correo";
-        
-        // Crear un nuevo objeto usuario utilizando el constructor
+
         Usuario nuevoUsuario = new Usuario(contrasena, dni, nombre, correo, new ArrayList<>(), tipoUsuario);
+
+        assertNotNull(nuevoUsuario);
     }
 
 

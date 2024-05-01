@@ -1,6 +1,5 @@
 package psc5.deustoimperiomoda.DataDomain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

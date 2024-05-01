@@ -32,6 +32,7 @@ public class ArticulosCompradosTest {
         
         // Crear un nuevo objeto Articulo utilizando el constructor
         ArticulosComprados nuevoArticulosComprados = new ArticulosComprados(articulo, pedido, cantidad);
+        assertNotNull(nuevoArticulosComprados);
     }
 
 

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 import org.springframework.stereotype.Service;
@@ -46,9 +45,9 @@ public class UsuarioService {
     }
 
     public Usuario getUsuario(String dni){
-        Optional<Usuario> result = usuarioRepository.findByDni(dni);
+        Usuario result = usuarioRepository.findByDni(dni);
         
-        return result.isEmpty() ? null : result.get();
+        return result;
     }
 
     public List<Usuario> getAllUsuarios(){
@@ -69,10 +68,9 @@ public class UsuarioService {
     }
 
     public Usuario updateUsuario(Usuario usuario, String dni){
-        Optional<Usuario> result = usuarioRepository.findByDni(dni);
+        Usuario updatedUsuario = usuarioRepository.findByDni(dni);
 
-        if (!result.isEmpty()) {
-            Usuario updatedUsuario = result.get();
+        if (!(updatedUsuario == null)) {
 
             updatedUsuario.setContrasena(usuario.getContrasena());
             updatedUsuario.setNombre(usuario.getNombre());
@@ -82,34 +80,32 @@ public class UsuarioService {
 
             usuarioRepository.save(updatedUsuario);
 
-            if (!usuarioRepository.findByDni(dni).isEmpty()) {
-                return result.isEmpty() ? null : result.get();
-            }
+            return usuario;
         }
 
-        return result.isEmpty() ? null : result.get();
+        return usuario;
     }
 
     public Usuario addUsuario(Usuario usuario, String dni){
-        Optional<Usuario> result = usuarioRepository.findByDni(usuario.getDni());
+        Usuario result = usuarioRepository.findByDni(usuario.getDni());
 
-        if (result.isEmpty()) {
+        if ((result == null)) {
 
             usuarioRepository.save(usuario);
 
-            if (!usuarioRepository.findByDni(dni).isEmpty()) {
-                return result.isEmpty() ? null : result.get();
+            if (!(usuarioRepository.findByDni(dni)== null)) {
+                return result;
             }
         }
 
-        return result.isEmpty() ? null : result.get();
+        return result;
     }
 
     public void deleteUsuario(String dni){
-        Optional<Usuario> result = usuarioRepository.findByDni(dni);
+        Usuario result = usuarioRepository.findByDni(dni);
 
-        if (!result.isEmpty()) {
-            usuarioRepository.delete(result.get());
+        if (!(result == null)) {
+            usuarioRepository.delete(result);
         }
     }
 }
