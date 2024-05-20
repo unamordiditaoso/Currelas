@@ -135,7 +135,6 @@
 					<props>${config.files.dir}/datanucleus.properties</props>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -203,6 +202,14 @@
                 	</execution>
             	</executions>
         	</plugin>
+			<plugin>
+			<groupId>com.soebes.maven.plugins</groupId>
+			<artifactId>doxygen-maven-plugin</artifactId>
+			<version>1.1.0</version>
+			<configuration>
+				<configurationFile>Doxyfile</configurationFile>
+			</configuration>
+			</plugin>
         </plugins>
     </build>
 </project>
