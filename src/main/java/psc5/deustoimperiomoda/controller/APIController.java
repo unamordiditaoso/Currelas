@@ -165,10 +165,28 @@ public class APIController {
     @RequestMapping("pedido/crear")
     public boolean crearPedido(@RequestParam (name = "dni") String dni) {
 
-        Usuario u = usuarioService.getUsuario(dni);
-        pedidoService.addPedido(new Pedido(u, Estado.Preparacion));
-
+    Usuario u = usuarioService.getUsuario(dni);
+    if (u != null) {
+        Pedido pedido = new Pedido();
+        pedido.setUsuario(u);
+        pedido.setEstado(Estado.Preparacion);
+        pedidoService.addPedido(pedido);
         return true;
+    } else {
+        return false;
     }
+    }
+
+    
+    @RequestMapping("pedido/update")
+    public boolean updatePedidoEstado(@RequestParam(name = "dni") String dni, 
+    @RequestParam(name = "estado") String nuevoEstado,
+    @RequestParam(name = "id") Integer id)
+     {
+        Usuario usuario = usuarioService.getUsuario(dni);
+        pedidoService.updatePedido(new Pedido(usuario, Estado.Devuelto), id);
+        return true;
+    }            
+
     
 }

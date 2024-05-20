@@ -81,11 +81,30 @@ public class PedidoService {
         return articulos;
     }
 
+    public Pedido getPedido(int id){
+        Pedido result = pedidoRepository.findById(id);
+        
+        return result;
+    }
+
     public List<Pedido> getAllPedidos() {
         return pedidoRepository.findAll();
     }
 
     public Pedido addPedido(Pedido pedido){
         return pedidoRepository.save(pedido);
+    }
+
+    public Pedido updatePedido(Pedido pedido, int idPedido){
+        Pedido updatedPedido = pedidoRepository.findById(idPedido);
+    
+        if (updatedPedido != null) {
+            updatedPedido.setEstado(pedido.getEstado());
+            pedidoRepository.save(updatedPedido);
+    
+            return updatedPedido;
+        }
+    
+        return null;
     }
 }
