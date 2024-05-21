@@ -180,13 +180,17 @@ public class APIController {
     
     @RequestMapping("pedido/update")
     public boolean updatePedidoEstado(@RequestParam(name = "dni") String dni, 
-    @RequestParam(name = "estado") String nuevoEstado,
-    @RequestParam(name = "id") Integer id)
-     {
-        Usuario usuario = usuarioService.getUsuario(dni);
-        pedidoService.updatePedido(new Pedido(usuario, Estado.Devuelto), id);
-        return true;
-    }            
+                                      @RequestParam(name = "estado") String nuevoEstado,
+                                      @RequestParam(name = "id") Integer id) {
+        Pedido pedido = pedidoService.getPedido(id);
+        if (pedido != null && pedido.getUsuario().getDni().equals(dni)) {
+            pedido.setEstado(Estado.valueOf(nuevoEstado));
+            pedidoService.updatePedido(pedido, id);
+            return true;
+        } else {
+            return false;
+        }
+    }         
 
     
 }
