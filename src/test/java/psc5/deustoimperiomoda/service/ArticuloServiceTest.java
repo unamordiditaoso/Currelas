@@ -9,7 +9,11 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.Required;
+import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,6 +24,8 @@ import psc5.deustoimperiomoda.DataDomain.Categoria;
 import psc5.deustoimperiomoda.dao.ArticuloRepository;
 
 @RunWith(MockitoJUnitRunner.class)
+@PerfTest(invocations = 500)
+@Required(max = 1200, average = 250)
 public class ArticuloServiceTest {
 
     private ArticuloService articuloService;
@@ -30,6 +36,8 @@ public class ArticuloServiceTest {
     @Mock
     private Articulo articulo1;
     
+    @Rule public ContiPerfRule rule = new ContiPerfRule();
+
     @Before
     public void setUp() {
         articulo = new Articulo(Categoria.Ropa, "Descripcion", "Nombre", 100, "L");

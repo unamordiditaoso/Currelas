@@ -14,7 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Arrays;
+
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.Required;
+import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -22,6 +27,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 
 @RunWith(MockitoJUnitRunner.class)
+@PerfTest(invocations = 500)
+@Required(max = 1200, average = 250)
 public class UsuarioServiceTest {
 
     private UsuarioService usuarioService;
@@ -31,6 +38,8 @@ public class UsuarioServiceTest {
     private Usuario usuario;
     @Mock
     private Usuario usuario1;
+
+    @Rule public ContiPerfRule rule = new ContiPerfRule();
 
     @Before
     public void testUsuarioServiceConstructor() {

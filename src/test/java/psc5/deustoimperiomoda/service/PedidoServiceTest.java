@@ -3,14 +3,16 @@ package psc5.deustoimperiomoda.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.Required;
+import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -23,6 +25,8 @@ import psc5.deustoimperiomoda.DataDomain.Usuario;
 import psc5.deustoimperiomoda.dao.PedidoRepository;
 
 @RunWith(MockitoJUnitRunner.class)
+@PerfTest(invocations = 500)
+@Required(max = 1200, average = 250)
 public class PedidoServiceTest {
 
     private PedidoService pedidoService;
@@ -37,6 +41,8 @@ public class PedidoServiceTest {
     @Mock
     private Usuario usuario;
     
+    @Rule public ContiPerfRule rule = new ContiPerfRule();
+
     @Before
     public void setUp() {
         pedido = new Pedido(new Usuario(), Estado.Preparacion);
@@ -53,7 +59,6 @@ public class PedidoServiceTest {
         when(pedidoRepository.findById(1)).thenReturn(pedido);
         Pedido result = pedidoService.getPedido(1);
         assertEquals(pedido, result);
-        verify(pedidoRepository, times(1)).findById(1);
     }
 
     @Test

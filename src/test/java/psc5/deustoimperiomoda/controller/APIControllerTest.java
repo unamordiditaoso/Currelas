@@ -28,7 +28,6 @@ import psc5.deustoimperiomoda.service.ArticuloService;
 import psc5.deustoimperiomoda.service.PedidoService;
 import psc5.deustoimperiomoda.service.UsuarioService;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class APIControllerTest {
 
@@ -43,7 +42,6 @@ public class APIControllerTest {
 
     @InjectMocks
     private APIController apiController;
-
 
     @BeforeEach
     public void setUp() {
