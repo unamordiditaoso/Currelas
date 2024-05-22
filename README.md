@@ -1,8 +1,6 @@
 Nuestro proyecto es una tienda online que tiene tanto fucniones de servidor como de cliente y en la que se puede interactuar con varias ventanas graficas con el rol de administrador o de cliente. La funcion principal de nuestra aplicacion es simular una tienda de ropa online
 en la que puedes comprar productos, gestionar envios y hacer seguimientos de ellos.
 
-La aplicacion esta en desarrollo, y vamos por el sprint 2, de 3 sprints previstos.
-
 En la fase actual de la aplicacion como cliente puedes hacer lo siguiente:
   *Filtrar los productos por categoria
   *Añadir productos al carrito
@@ -19,5 +17,9 @@ Como administrador puedes hacer lo siguiente:
 Para iniciar el server hay que poner este comando en la terminal: **mvn spring-boot:run**
 
 **TEST**
-Escribir en la terminar: **mvn test**
+Escribir en la terminal: **mvn test**
 Para ver los resultados en un grafico -> abrir **target/site/jacoco/index.html**
+
+**DOCUMENTACIÓN**
+Escribir en el cmd: **doxygen Doxyfile**
+Para ver las funciones de todo el proyecto -> abrir **html/index.html**
