@@ -22,7 +22,6 @@ import psc5.deustoimperiomoda.dao.ArticuloRepository;
 @RunWith(MockitoJUnitRunner.class)
 public class ArticuloServiceTest {
 
-    @Mock
     private ArticuloService articuloService;
     @Mock
     private ArticuloRepository articuloRepository;

@@ -27,6 +27,9 @@ public class UsuarioService {
         loadDatos();
     }
 
+    /** @brief Carga todos los usuarios de la base de datos y los guarda en el repositorio de usuarios
+     */
+
     public void loadDatos(){
         String sql = "SELECT * FROM usuario";
 		
@@ -44,15 +47,27 @@ public class UsuarioService {
 		}
     }
 
+    /** @brief Coge el usuario por el dni
+     *  @return Devuelve el usuario si coincide con el dni
+     */
+
     public Usuario getUsuario(String dni){
         Usuario result = usuarioRepository.findByDni(dni);
         
         return result;
     }
 
+    /** @brief Coge todos los usuarios
+     *  @return Lista de los usarios del repositorio
+     */
+
     public List<Usuario> getAllUsuarios(){
         return usuarioRepository.findAll();
     }
+
+    /** @brief Coge todos los usuarios tipo Cliente
+     *  @return Lista de los usuarios tipo Cliente del repositorio
+     */
 
     public List<Usuario> getAllClientes(){
         List<Usuario> usuarios = getAllUsuarios();
@@ -66,6 +81,10 @@ public class UsuarioService {
 
         return result.isEmpty() ? null : result;
     }
+
+    /** @brief Actualiza un usuario del dni enviado
+     *  @return El usuario actualizado
+     */
 
     public Usuario updateUsuario(Usuario usuario, String dni){
         Usuario updatedUsuario = usuarioRepository.findByDni(dni);
@@ -86,6 +105,10 @@ public class UsuarioService {
         return usuario;
     }
 
+    /** @brief Añade un usuario al repositorio
+     *  @return Usuario añadido o si ya existía ese usuario el usuario ya existente
+     */
+
     public Usuario addUsuario(Usuario usuario, String dni){
         Usuario result = usuarioRepository.findByDni(usuario.getDni());
 
@@ -100,6 +123,9 @@ public class UsuarioService {
 
         return result;
     }
+
+    /** @brief Borra un usuario por el dni
+     */
 
     public void deleteUsuario(String dni){
         Usuario result = usuarioRepository.findByDni(dni);

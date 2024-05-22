@@ -3,9 +3,6 @@ package psc5.deustoimperiomoda.DataDomain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
@@ -13,14 +10,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 @PerfTest(invocations = 5)
 @Required(max = 1200, average = 250)
 public class PedidoTest {
-    @Mock
+
     private Pedido pedido;
 
     @Rule public ContiPerfRule rule = new ContiPerfRule();
@@ -35,7 +31,6 @@ public class PedidoTest {
     @Required(max = 120, average = 30)
     public void testConstructor() {
         Usuario usuario = new Usuario();
-        Date fecha = new Date();
         
         Pedido nuevoPedido = new Pedido(usuario, Estado.Preparacion);
         assertNotNull(nuevoPedido);

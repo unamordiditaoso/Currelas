@@ -26,6 +26,9 @@ private String connectionString;
         loadDatos();
     }
     
+    /** @brief Carga todos los artículos de la base de datos y los guarda en el repositorio de artículos
+     */
+
     public void loadDatos(){
         String sql = "SELECT * FROM articulo";
 		
@@ -43,15 +46,27 @@ private String connectionString;
 		}
     }
 
+    /** @brief Coge el artículo por el id
+     *  @return Devuelve el artículo si coincide con el id
+     */
+
     public Articulo getArticulo(int id){
         Articulo result = articuloRepository.findById(id);
         
         return result;
     }
 
+    /** @brief Coge todos los artículos
+     *  @return Lista de los artículos del repositorio
+     */
+
     public List<Articulo> getAllArticulos(){
         return articuloRepository.findAll();
     }
+    
+    /** @brief Coge todos los artículos según la categoría enviada
+     *  @return Lista de los artículos que coinciden con la categoría enviada
+     */
 
     public List<Articulo> getByCategoria(Categoria categoria){
         
@@ -67,28 +82,41 @@ private String connectionString;
         return result.isEmpty() ? null : result;
     }
 
+
+    /** @brief Añade un artículo al repositorio
+     *  @retval True Artículo correctamente añadido
+     *  @retval False Artículo no añadido
+     */
+
     public Articulo addArticulo(Articulo articulo){
         return articuloRepository.save(articulo);
     }
 
+    /** @brief Actualiza un artículo del id enviado
+     *  @return El artículo actualizado
+     */
+
     public Articulo updateArticulo(Articulo articulo, int id){
     Articulo result = articuloRepository.findById(id);
-    if (!(result == null)) {
-        
-        Articulo updatedArticulo = result;
+        if (!(result == null)) {
+            
+            Articulo updatedArticulo = result;
 
-        updatedArticulo.setDescripcion(articulo.getDescripcion());
-        updatedArticulo.setCategoria(articulo.getCategoria());
-        updatedArticulo.setNombre(articulo.getNombre());
-        updatedArticulo.setPrecio(articulo.getPrecio());
-        updatedArticulo.setTamano(articulo.getTamano());
-        
-        articuloRepository.save(updatedArticulo);
+            updatedArticulo.setDescripcion(articulo.getDescripcion());
+            updatedArticulo.setCategoria(articulo.getCategoria());
+            updatedArticulo.setNombre(articulo.getNombre());
+            updatedArticulo.setPrecio(articulo.getPrecio());
+            updatedArticulo.setTamano(articulo.getTamano());
+            
+            articuloRepository.save(updatedArticulo);
 
+            return result;
+        }
         return result;
     }
-    return result;
-}
+
+    /** @brief Boora un artículo por el id
+     */
 
     public void deleteArticulo(int id){
         Articulo result = articuloRepository.findById(id);

@@ -1,7 +1,6 @@
 package psc5.deustoimperiomoda.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -174,9 +173,13 @@ public class APIControllerTest {
 
     @Test
     public void testCrearPedido() {
-    when(usuarioService.getUsuario("dni")).thenReturn(usuario);
+        when(usuarioService.getUsuario("dni")).thenReturn(usuario);
     
-    assertTrue(apiController.crearPedido("dni"));
+        assertTrue(apiController.crearPedido("dni"));
+
+        when(usuarioService.getUsuario("1")).thenReturn(null);
+
+        assertFalse(apiController.crearPedido("1"));
     }   
 
     @Test
@@ -192,6 +195,10 @@ public class APIControllerTest {
         assertTrue(result);
         verify(pedidoService, times(1)).updatePedido(pedido, 1);
         assertEquals(Estado.Recibido, pedido.getEstado());
+
+        usuario.setDni("1");
+        pedido.setUsuario(usuario);
+        assertFalse(apiController.updatePedidoEstado("12345678", "Recibido", 1));
 
         when(pedidoService.getPedido(2)).thenReturn(null);
         boolean result1 = apiController.updatePedidoEstado("12345678", "Recibido", 2);

@@ -7,20 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import psc5.deustoimperiomoda.DataDomain.Articulo;
-import psc5.deustoimperiomoda.DataDomain.Categoria;
 import psc5.deustoimperiomoda.DataDomain.Estado;
 import psc5.deustoimperiomoda.DataDomain.Pedido;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
-import psc5.deustoimperiomoda.dao.ArticuloRepository;
 import psc5.deustoimperiomoda.dao.PedidoRepository;
-import psc5.deustoimperiomoda.service.ArticuloService;
 
 @Service
 public class PedidoService {
@@ -35,6 +31,9 @@ public class PedidoService {
         this.connectionString = "jdbc:sqlite:DeustoImperioModa.db";
         loadDatos();
     }
+
+    /** @brief Carga todos los pedidos de la base de datos y los guarda en el repositorio de pedidos
+     */
 
     public void loadDatos(){
         String sql = "SELECT * FROM pedido";
@@ -56,7 +55,9 @@ public class PedidoService {
         }
     }
 
-    
+    /** @brief Carga todos los artículos de la base de datos por pedido
+     */
+
     private List<Articulo> loadArticulosbyPedido(int idPedido) throws SQLException {
         List<Articulo> articulos = new ArrayList<>();
     
@@ -81,19 +82,37 @@ public class PedidoService {
         return articulos;
     }
 
+    /** @brief Coge el pedido por el id
+     *  @return Devuelve el pedido si coincide con el id
+     */
+
     public Pedido getPedido(int id){
         Pedido result = pedidoRepository.findById(id);
         
         return result;
     }
 
+    /** @brief Coge todos los pedidos
+     *  @return Lista de los todos los pedidos del repositorio
+     */
+
     public List<Pedido> getAllPedidos() {
         return pedidoRepository.findAll();
     }
 
+    /** @brief Añade un pedido al repositorio
+     *  @retval True Pedido correctamente añadido
+     *  @retval False Pedido no añadido
+     */
+
     public Pedido addPedido(Pedido pedido){
         return pedidoRepository.save(pedido);
     }
+
+    /** @brief Actualiza un pedido del id enviado
+     *  @return El pedido actualizado
+     */
+
 
     public Pedido updatePedido(Pedido pedido, int idPedido){
         Pedido updatedPedido = pedidoRepository.findById(idPedido);

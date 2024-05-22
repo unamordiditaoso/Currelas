@@ -12,14 +12,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 @PerfTest(invocations = 5)
 @Required(max = 1200, average = 250)
 public class UsuarioTest {
-    @Mock
+
     private Usuario usuario;
 
     @Rule public ContiPerfRule rule = new ContiPerfRule();

@@ -1,7 +1,6 @@
 HELP.md
 target/
 html/
-ticket.txt
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
