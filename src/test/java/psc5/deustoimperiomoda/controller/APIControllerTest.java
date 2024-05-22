@@ -1,9 +1,12 @@
 package psc5.deustoimperiomoda.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +21,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import psc5.deustoimperiomoda.DataDomain.Articulo;
+import psc5.deustoimperiomoda.DataDomain.Estado;
+import psc5.deustoimperiomoda.DataDomain.Pedido;
 import psc5.deustoimperiomoda.DataDomain.TipoUsuario;
 import psc5.deustoimperiomoda.DataDomain.Usuario;
 import psc5.deustoimperiomoda.service.ArticuloService;
@@ -169,6 +174,27 @@ public class APIControllerTest {
 
     @Test
     public void testCrearPedido() {
-        assertTrue(apiController.crearPedido("dni"));
+    when(usuarioService.getUsuario("dni")).thenReturn(usuario);
+    
+    assertTrue(apiController.crearPedido("dni"));
+    }   
+
+    @Test
+    public void testUpdatePedidoEstado() {
+        Pedido pedido = new Pedido();
+        pedido.setId(1);
+        usuario = new Usuario();
+        usuario.setDni("12345678");
+        pedido.setUsuario(usuario);
+        when(pedidoService.getPedido(1)).thenReturn(pedido);
+        assertNotNull(usuario.getDni());
+        boolean result = apiController.updatePedidoEstado("12345678", "Recibido", 1);
+        assertTrue(result);
+        verify(pedidoService, times(1)).updatePedido(pedido, 1);
+        assertEquals(Estado.Recibido, pedido.getEstado());
+
+        when(pedidoService.getPedido(2)).thenReturn(null);
+        boolean result1 = apiController.updatePedidoEstado("12345678", "Recibido", 2);
+        assertEquals(false, result1);
     }
 }
